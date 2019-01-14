@@ -1,0 +1,52 @@
+@import 'src/styles/variables.scss';
+
+.menu {
+    width: 300px;
+    background-color: $light-gray3;
+    border-right: 1px solid $gray3;
+    flex-shrink: 0;
+    box-sizing: border-box;
+
+    ul {
+        list-style-type: none;
+        margin: 0;
+        padding: 0;
+        width: 100%;
+    }
+
+    li {
+        box-sizing: border-box;
+        border-bottom: 1px solid $gray3;
+    }
+
+    li:first-of-type {
+        border-top: 1px solid $gray3;
+    }
+
+    li a {
+        display: block;
+        color: $dark-gray3;
+        padding: 8px 16px;
+        text-decoration: none;
+        transition: all 100ms linear;
+        border-left: 0px solid $blue3;
+    }
+
+    /* Change the link color on hover */
+    li a:hover {
+        background-color: $gray3;
+        color: $light-gray5;
+    }
+}
+
+.active{
+    font-weight: bold;
+    border-left: 10px solid $blue3 !important;
+}
+
+.logo {
+    font-weight: bold;
+    font-size: 18px;
+    text-align: center;
+    padding: 10px 0;
+}

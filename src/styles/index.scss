@@ -1,0 +1,37 @@
+@import '~normalize.css/normalize.css';
+@import 'variables.scss';
+
+html,
+body {
+    height: 100%;
+    padding: 0;
+    margin: 0;
+    min-height: 600px;
+    font-family: 'Ubuntu', sans-serif;
+}
+
+body {
+    user-select: none;
+    background-color: $light-gray5;
+    color: #293742;
+}
+
+* {
+    outline-style: none;
+}
+
+#root {
+    height: 100%;
+    display: flex;
+}
+
+.filler {
+    flex-grow: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.mainContent {
+    flex-grow: 1;
+}

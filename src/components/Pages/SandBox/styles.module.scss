@@ -1,0 +1,27 @@
+@import 'src/styles/variables.scss';
+
+.chart{
+    padding: 10px;
+    margin: 5px;
+    border: 1px solid $gray3;
+    background-color: $light-gray5;
+}
+.cubic {
+    background-color: $dark-gray5;
+    border: 1px solid $dark-gray3;
+    display: inline-block;
+    width: 20px;
+    margin-right: 2px;
+    position: relative;
+}
+
+.label {
+    position: absolute;
+    bottom: 5px;
+    left: calc(50% - 5px);
+    font-size: 12px;
+    writing-mode: vertical-rl;
+    text-orientation: mixed;
+    z-index: 2;
+    color: $light-gray5;
+}
