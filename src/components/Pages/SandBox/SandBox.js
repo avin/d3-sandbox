@@ -2,8 +2,6 @@ import React from 'react';
 import { connect } from 'react-redux';
 
 export class SandBox extends React.Component {
-    componentDidMount() {}
-
     render() {
         return (
             <div

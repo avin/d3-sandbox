@@ -2,7 +2,9 @@
 
 > Only for my personal education purposes. Nothing special.
 
-[Current version](https://avin.github.io/d3-sandbox/)
+## Demo
+
+[ >> [View online](https://avin.github.io/d3-sandbox/) << ]
 
 ## License
 

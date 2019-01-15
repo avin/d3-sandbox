@@ -20,12 +20,7 @@ module.exports = {
         'no-mixed-operators': 'off',
         'no-await-in-loop': 'off',
         'func-names': ['error', 'never'],
-        'no-underscore-dangle': [
-            'error',
-            {
-                allow: ['__REDUX_DEVTOOLS_EXTENSION__'],
-            },
-        ],
+        'no-underscore-dangle': "off",
         'prefer-destructuring': [
             'error',
             {

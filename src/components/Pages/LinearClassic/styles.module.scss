@@ -1,0 +1,27 @@
+@import 'src/styles/variables.scss';
+
+.chart {
+    margin: 5px;
+    border: 1px solid $gray3;
+}
+
+.axis {
+}
+
+.xAxis {
+}
+
+.yAxis {
+}
+
+.line{
+    fill: none;
+    stroke: $red5;
+    stroke-width: 3;
+}
+
+.dot{
+    fill: $red4;
+    stroke: $light-gray5;
+    pointer-events: all;
+}

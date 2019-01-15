@@ -5,36 +5,51 @@ import { range } from 'lodash/fp';
 import styles from './styles.module.scss';
 
 export class DivHistogram extends React.Component {
-    data = range(0, 20).map(v => Math.random() * 50);
+    data = range(0, 200).map(v => Math.random() * 50);
+
+    updateData = () => {
+        this.data.push(Math.random() * 50);
+        this.data = this.data.slice(1);
+
+        this.draw();
+
+        setTimeout(this.updateData, 50);
+    };
 
     draw = () => {
+        if (!this.containerRef) {
+            return;
+        }
         const width = this.containerRef.clientWidth;
 
         const yScale = d3
             .scaleLinear()
-            .domain([0, 50])
-            .range([100, 300])
-            .nice();
+            .domain([0, d3.max(this.data)])
+            .range([100, 300]);
+
+        const xScale = d3
+            .scaleLinear()
+            .domain([0, 1])
+            .range([0, width / this.data.length - 2]);
 
         const container = d3.select(this.containerRef);
 
-        // Очищаем старый кеш (но тогда перерисуется всё DOM дерево - это нормально??)
-        container.selectAll('div').remove();
+        container
+            .selectAll(`.${styles.cubic}`)
+            .data(this.data, v => v)
+            .exit()
+            .remove();
 
-        const sections = d3
-            .select(this.containerRef)
-            .selectAll('div')
-            .data(this.data);
-
-        sections
+        container
+            .selectAll(`.${styles.cubic}`)
+            .data(this.data, v => v)
             .enter()
             .append('div')
             .classed(styles.cubic, true)
-            .style('height', d => `${yScale(d)}px`)
-            .style('width', d => `${width / this.data.length - 3}px`)
-            .append('div')
-            .classed(styles.label, true)
-            .text(d => d.toFixed(2));
+            .style('height', d => `${yScale(d)}px`);
+
+        // Навешиваем ширину отдельно - это нужно для ресайза окна
+        container.selectAll(`div.${styles.cubic}`).style('width', `${xScale(1)}px`);
     };
 
     shouldComponentUpdate(nextProps, nextState, nextContext) {
@@ -42,7 +57,7 @@ export class DivHistogram extends React.Component {
     }
 
     componentDidMount() {
-        this.draw();
+        this.updateData();
 
         window.addEventListener('resize', this.draw);
     }

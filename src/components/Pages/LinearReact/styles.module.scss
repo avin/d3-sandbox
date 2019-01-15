@@ -1,0 +1,73 @@
+@import 'src/styles/variables.scss';
+
+$animationCurve: cubic-bezier(0.175, 0.885, 0.32, 1.275);
+
+.chart {
+    margin: 5px;
+    border: 1px solid $gray3;
+}
+
+.axis {
+}
+
+.xAxis {
+    :global {
+        text {
+            padding-right: 20px;
+            animation: animateXAxisText 1000ms $animationCurve;
+        }
+    }
+}
+
+.yAxis {
+    :global {
+        text {
+            padding-right: 20px;
+            animation: animateYAxisText 1000ms $animationCurve;
+        }
+    }
+}
+
+.line {
+    fill: none;
+    stroke: $blue5;
+    stroke-width: 3;
+    animation: animateLine 1000ms;
+}
+
+.dot {
+    fill: $blue4;
+    stroke: $light-gray5;
+    pointer-events: all;
+}
+
+@keyframes :global(animateYAxisText) {
+    0% {
+        transform: translate(-20px, 0px);
+        opacity: 0;
+    }
+    100% {
+        transform: translate(0px, 0px);
+        opacity: 1;
+    }
+}
+
+@keyframes :global(animateXAxisText) {
+    0% {
+        transform: translate(0px, 20px);
+        opacity: 0;
+    }
+    100% {
+        transform: translate(0px, 0px);
+        opacity: 1;
+    }
+}
+
+@keyframes animateLine {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
