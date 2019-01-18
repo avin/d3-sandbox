@@ -1,0 +1,42 @@
+@import 'src/styles/variables.scss';
+
+.chart {
+    margin: 5px;
+    border: 1px solid $gray3;
+}
+
+.circle {
+    fill: $blue3;
+    stroke: $blue1;
+    stroke-width: 0;
+    box-shadow: 1px 1px 5px black;
+    transition: stroke-width 100ms linear;
+    pointer-events: all;
+
+    &:hover {
+        stroke-width: 2px;
+    }
+}
+
+.activeCircle {
+    fill: $red3 !important;
+}
+
+.label {
+    text-anchor: middle;
+    dominant-baseline: central;
+    pointer-events: none;
+}
+
+.selectedItem {
+    display: inherit;
+}
+
+.grid{
+    :global{
+        line{
+            stroke: rgba($gray3, 0.2);
+        }
+    }
+
+}
