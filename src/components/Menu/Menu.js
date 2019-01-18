@@ -6,6 +6,7 @@ import DivHistogram from '../Pages/DivHistogram/DivHistogram';
 import LinearClassic from '../Pages/LinearClassic/LinearClassic';
 import LinearReact from '../Pages/LinearReact/LinearReact';
 import DotsMap from '../Pages/DotsMap/DotsMap';
+import ForceLayout from '../Pages/ForceLayout/ForceLayout';
 
 export const urls = [
     ['/sandbox', '__sandBox__', SandBox],
@@ -13,6 +14,7 @@ export const urls = [
     ['/linearClassic', '(2/1) LinearClassic (pure d3)', LinearClassic],
     ['/LinearReact', '(2/2) LinearReact (d3 as helper)', LinearReact],
     ['/DotsMap', '(3) DotsMap', DotsMap],
+    ['/ForceLayout', '(4) ForceLayout', ForceLayout],
 ];
 
 export default class Menu extends React.Component {

@@ -1,0 +1,16 @@
+@import 'src/styles/variables.scss';
+
+.mainSvg {
+    border: 1px solid $gray3;
+    margin: 5px;
+}
+
+.node {
+    stroke: $gray1;
+    stroke-width: 1px;
+}
+
+.link {
+    stroke: $gray1;
+    stroke-width: 2px;
+}
