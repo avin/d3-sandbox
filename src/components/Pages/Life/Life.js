@@ -128,10 +128,17 @@ export class Life extends React.Component {
                     .attr('opacity', 0.0)
                     .remove();
 
-                setTimeout(resolve, 200);
+                if (this.timerId) {
+                    clearTimeout(this.timerId);
+                }
+                this.timerId = setTimeout(resolve, 200);
             } else {
                 exitCells.remove();
-                setTimeout(resolve, 10);
+
+                if (this.timerId) {
+                    clearTimeout(this.timerId);
+                }
+                this.timerId = setTimeout(resolve, 10);
             }
         });
 
@@ -358,7 +365,7 @@ export class Life extends React.Component {
                     />
                 </div>
                 <div className={styles.controls}>
-                    {['#FF0000', '#00FF00', '#0000FF'].map(color => (
+                    {[COLORS.RED, COLORS.GREEN, COLORS.BLUE].map(color => (
                         <div
                             key={color}
                             data-color={color}
