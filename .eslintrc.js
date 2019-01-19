@@ -20,7 +20,8 @@ module.exports = {
         'no-mixed-operators': 'off',
         'no-await-in-loop': 'off',
         'func-names': ['error', 'never'],
-        'no-underscore-dangle': "off",
+        'no-underscore-dangle': 'off',
+        'lines-between-class-members': ['error', 'always', { exceptAfterSingleLine: true }],
         'prefer-destructuring': [
             'error',
             {

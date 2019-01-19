@@ -7,14 +7,16 @@ import LinearClassic from '../Pages/LinearClassic/LinearClassic';
 import LinearReact from '../Pages/LinearReact/LinearReact';
 import DotsMap from '../Pages/DotsMap/DotsMap';
 import ForceLayout from '../Pages/ForceLayout/ForceLayout';
+import Life from '../Pages/Life/Life';
 
 export const urls = [
-    ['/sandbox', '__sandBox__', SandBox],
-    ['/divHistogram', '(1) DivHistogram', DivHistogram],
-    ['/linearClassic', '(2/1) LinearClassic (pure d3)', LinearClassic],
+    ['/Sandbox', '__sandBox__', SandBox],
+    ['/DivHistogram', '(1) DivHistogram', DivHistogram],
+    ['/LinearClassic', '(2/1) LinearClassic (pure d3)', LinearClassic],
     ['/LinearReact', '(2/2) LinearReact (d3 as helper)', LinearReact],
     ['/DotsMap', '(3) DotsMap', DotsMap],
     ['/ForceLayout', '(4) ForceLayout', ForceLayout],
+    ['/Life', '(5) Life', Life],
 ];
 
 export default class Menu extends React.Component {
