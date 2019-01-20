@@ -8,6 +8,7 @@ import LinearReact from '../Pages/LinearReact/LinearReact';
 import DotsMap from '../Pages/DotsMap/DotsMap';
 import ForceLayout from '../Pages/ForceLayout/ForceLayout';
 import Life from '../Pages/Life/Life';
+import Tables from '../Pages/Tables/Tables';
 
 export const urls = [
     ['/Sandbox', '__sandBox__', SandBox],
@@ -17,6 +18,7 @@ export const urls = [
     ['/DotsMap', '(3) DotsMap', DotsMap],
     ['/ForceLayout', '(4) ForceLayout', ForceLayout],
     ['/Life', '(5) Life', Life],
+    ['/Tables', '(6) Tables', Tables],
 ];
 
 export default class Menu extends React.Component {

@@ -1,0 +1,20 @@
+@import 'src/styles/variables.scss';
+
+.table {
+    border: 1px solid $dark-gray1;
+    margin: 5px;
+    border-collapse: collapse;
+
+    :global {
+        td,
+        th {
+            border: 1px solid $dark-gray5;
+            min-width: 80px;
+            text-align: center;
+        }
+
+        thead > tr {
+            background-color: $light-gray1;
+        }
+    }
+}
