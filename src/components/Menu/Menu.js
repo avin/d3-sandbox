@@ -9,6 +9,7 @@ import DotsMap from '../Pages/DotsMap/DotsMap';
 import ForceLayout from '../Pages/ForceLayout/ForceLayout';
 import Life from '../Pages/Life/Life';
 import Tables from '../Pages/Tables/Tables';
+import GeoMap from '../Pages/GeoMap/GeoMap';
 
 export const urls = [
     ['/Sandbox', '__sandBox__', SandBox],
@@ -19,6 +20,7 @@ export const urls = [
     ['/ForceLayout', '(4) ForceLayout', ForceLayout],
     ['/Life', '(5) Life', Life],
     ['/Tables', '(6) Tables', Tables],
+    ['/GeoMap.js', '(7) GeoMap', GeoMap],
 ];
 
 export default class Menu extends React.Component {
