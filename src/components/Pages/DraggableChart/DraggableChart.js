@@ -9,8 +9,13 @@ export class DraggableChart extends React.Component {
         const realHeight = 400;
         const margin = 30;
 
+        let diffRange = 25;
         let from = 0;
-        let to = 10;
+        let to = from + diffRange;
+
+        const updateRange = () => {
+            to = from + diffRange;
+        };
 
         const maxPoints = 1000;
 
@@ -25,30 +30,50 @@ export class DraggableChart extends React.Component {
             .attr('height', realHeight);
 
         let startX;
-        svgMain.call(
-            d3
-                .drag()
-                .clickDistance(10)
-                .on('start', () => {
-                    startX = d3.event.x;
-                })
-                .on('drag', () => {
-                    const diff = d3.event.x - startX;
-                    if (diff < -10) {
+        let startZoom = 0;
+        svgMain
+            .call(
+                d3
+                    .drag()
+                    .clickDistance(10)
+                    .on('start', () => {
                         startX = d3.event.x;
-                        from = Math.min(maxPoints - 20, from + 1);
-                        to = Math.min(maxPoints, to + 1);
+                    })
+                    .on('drag', () => {
+                        const diff = d3.event.x - startX;
+
+                        if (diff < -10) {
+                            startX = d3.event.x;
+                            from = Math.min(maxPoints - 20, from + 1);
+                            to = Math.min(maxPoints, to + 1);
+                            redraw();
+                        }
+                        if (diff > 10) {
+                            startX = d3.event.x;
+                            from = Math.max(0, from - 1);
+                            to = Math.max(20, to - 1);
+                            redraw();
+                        }
+                    }),
+            )
+            .call(
+                d3.zoom().on('zoom', () => {
+                    const diff = d3.event.transform.k - startZoom;
+                    startZoom = d3.event.transform.k;
+
+                    if (diff < 0) {
+                        diffRange = Math.max(10, diffRange - 1);
+                        updateRange();
                         redraw();
                     }
 
-                    if (diff > 10) {
-                        startX = d3.event.x;
-                        from = Math.max(0, from - 1);
-                        to = Math.max(20, to - 1);
+                    if (diff > 0) {
+                        diffRange = Math.min(50, diffRange + 1);
+                        updateRange();
                         redraw();
                     }
                 }),
-        );
+            );
 
         const svg = svgMain
             .append('g')
@@ -62,7 +87,7 @@ export class DraggableChart extends React.Component {
         const xScale = () =>
             d3
                 .scaleLinear()
-                .domain([0, to - from])
+                .domain([0, diffRange])
                 .range([margin, width]);
 
         const xAxisScale = () =>
