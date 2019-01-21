@@ -1,0 +1,7 @@
+@import 'src/styles/variables.scss';
+
+.chart {
+    border: 1px solid $dark-gray3;
+    margin: 10px;
+    pointer-events: all;
+}

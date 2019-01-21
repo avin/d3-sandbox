@@ -1,3 +1,27 @@
 @import 'src/styles/variables.scss';
 
+.selected {
+    fill: $red3;
+}
 
+.buttons {
+    display: flex;
+}
+
+.buttons button {
+    flex-grow: 1;
+    color: white;
+    background: $dark-gray3;
+    border: 2px solid white;
+    transition: .5s background;
+}
+
+.buttons button.active {
+    background: $blue3;
+}
+
+.words {
+    padding: .5em;
+    text-align: center;
+    font-size: 1.5em;
+}
