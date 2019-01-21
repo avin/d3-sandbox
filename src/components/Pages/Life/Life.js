@@ -107,11 +107,10 @@ export class Life extends React.Component {
                     .attr('fill', d => d[2]);
             };
 
-            dataCells.call(processLiveCell);
-
             dataCells
                 .enter()
                 .append('rect')
+                .merge(dataCells)
                 .call(processLiveCell);
 
             const exitCells = dataCells.exit();
@@ -257,7 +256,7 @@ export class Life extends React.Component {
         // Glider
         // this.cells = [[10, 10], [11, 11], [12, 11], [12, 10], [12, 9]];
 
-        this.reDraw();
+        this.reDraw(true);
     };
 
     handleClean = () => {
