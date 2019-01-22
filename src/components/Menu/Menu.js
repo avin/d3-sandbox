@@ -13,6 +13,7 @@ import GeoMap from '../Pages/GeoMap/GeoMap';
 import DraggableChart from '../Pages/DraggableChart/DraggableChart';
 import Brush from '../Pages/Brush/Brush';
 import Zoom from '../Pages/Zoom/Zoom';
+import Hierarchy from '../Pages/Hierarchy/Hierarchy';
 
 export const urls = [
     ['/Sandbox', '__sandBox__', SandBox],
@@ -27,6 +28,7 @@ export const urls = [
     ['/DraggableChart', '(8) DraggableChart', DraggableChart],
     ['/Brush', '(9) Brush', Brush],
     ['/Zoom', '(10) Zoom', Zoom],
+    ['/Hierarchy', '(11) Hierarchy', Hierarchy],
 ];
 
 export default class Menu extends React.Component {
