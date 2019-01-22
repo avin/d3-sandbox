@@ -11,6 +11,8 @@ import Life from '../Pages/Life/Life';
 import Tables from '../Pages/Tables/Tables';
 import GeoMap from '../Pages/GeoMap/GeoMap';
 import DraggableChart from '../Pages/DraggableChart/DraggableChart';
+import Brush from '../Pages/Brush/Brush';
+import Zoom from '../Pages/Zoom/Zoom';
 
 export const urls = [
     ['/Sandbox', '__sandBox__', SandBox],
@@ -23,6 +25,8 @@ export const urls = [
     ['/Tables', '(6) Tables', Tables],
     ['/GeoMap', '(7) GeoMap', GeoMap],
     ['/DraggableChart', '(8) DraggableChart', DraggableChart],
+    ['/Brush', '(9) Brush', Brush],
+    ['/Zoom', '(10) Zoom', Zoom],
 ];
 
 export default class Menu extends React.Component {
