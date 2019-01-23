@@ -28,3 +28,40 @@ export default function chartFactory(domNode, opts = {}, proto = protoChart) {
 
     return chart;
 }
+
+export const colorScale = d3.scaleOrdinal().range(d3.schemeCategory10);
+
+export const heightValueComparator = (a, b) => b.height - a.height || b.value - a.value;
+
+export const valueComparator = (a, b) => b.value - a.value;
+
+export function uniques(data, name) {
+    return data
+        .reduce((uniqueValues, d) => {
+            uniqueValues.push(uniqueValues.indexOf(name(d)) < 0 ? name(d) : undefined);
+
+            return uniqueValues;
+        }, [])
+        .filter(i => i); // Filter by identity
+}
+
+export function fixateColors(data, key) {
+    colorScale.domain(uniques(data, d => d[key]));
+}
+
+export const addRoot = (data, itemKey, parentKey, joinValue) => {
+    data.forEach(d => {
+        d[parentKey] = d[parentKey] || joinValue;
+    });
+
+    data.push({
+        [parentKey]: '',
+        [itemKey]: joinValue,
+    });
+
+    return data;
+};
+
+export const tooltip = () => {};
+
+export const descendantsDarker = () => {};

@@ -3,18 +3,12 @@ import React from 'react';
 import { connect } from 'react-redux';
 import * as d3 from 'd3';
 import styles from './styles.module.scss';
+import chartFactory from '../../../common';
 
 export class Hierarchy extends React.Component {
     draw = () => {
         const width = 500;
         const height = 500;
-
-        const svg = d3
-            .select(this.containerRef)
-            .append('svg')
-            .attr('width', width)
-            .attr('height', height)
-            .attr('class', styles.chart);
 
         const data = [
             { name: 'Bob', parent: '' },
@@ -23,28 +17,43 @@ export class Hierarchy extends React.Component {
             { name: 'John', parent: 'Alice' },
         ];
 
-        const root = d3
-            .stratify()
-            .id(d => d.name)
-            .parentId(d => d.parent)(data);
+        const westerosChart = chartFactory(this.containerRef, {
+            margin: { top: 50, right: 50, bottom: 50, left: 50 },
+            padding: { top: 10, right: 10, bottom: 10, left: 10 },
+        });
 
-        const treemap = d3
-            .treemap()
-            .size([width, height])
-            .padding(2);
+        westerosChart.loadData = async function(url) {
+            if (url.match(/\.csv$/)) {
+                this.data = d3.csvParse(await (await fetch(url)).text());
+            } else if (url.match(/\.json$/)) {
+                this.data = await (await fetch(url)).json();
+            }
 
-        const line = d3.line();
+            return this.data;
+        };
 
-        // svg.selectAll('.link')
-        //     .data(treemap(root).descendants().slice(1))
-        //     .enter()
-        //     .append('path')
-        //     .attr('stroke', '#F00')
-        //     .attr('stroke-width', '1px')
-        //     .attr('d', d => {
-        //         console.log(d);
-        //         return line([[d.x0, d.y0], [d.parent.x1, d.parent.y1]])
-        //     });
+        westerosChart.init = function(chartType, dataUrl, ...args) {
+            this.loadData(dataUrl).then(data => this[chartType].call(this, data, ...args));
+
+            this.innerHeight =
+                this.height - this.margin.top - this.margin.bottom - this.padding.top - this.padding.bottom;
+
+            this.innerWeight =
+                this.width - this.margin.left - this.margin.right - this.padding.left - this.padding.right;
+        };
+
+        westerosChart.tree = function(_data) {
+            // const data = getMajorHouses(_data);
+            const data = _data;
+            const chart = this.container;
+            const stratify = d3
+                .stratify()
+                .parentId(d => d.fatherLabel)
+                .id(d => d.itemLabel);
+
+            const root = stratify(data);
+            const layout = d3.tree().size([this.innerWeight, this.innerHeight]);
+        };
     };
 
     componentDidMount() {
@@ -54,6 +63,7 @@ export class Hierarchy extends React.Component {
     render() {
         return (
             <div
+                className={styles.root}
                 ref={i => {
                     this.containerRef = i;
                 }}
