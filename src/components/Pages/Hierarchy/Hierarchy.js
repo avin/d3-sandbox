@@ -2,6 +2,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import * as d3 from 'd3';
+import clsx from 'clsx';
 import styles from './styles.module.scss';
 import chartFactory from '../../../common';
 
@@ -17,43 +18,83 @@ export class Hierarchy extends React.Component {
             { name: 'John', parent: 'Alice' },
         ];
 
-        const westerosChart = chartFactory(this.containerRef, {
-            margin: { top: 50, right: 50, bottom: 50, left: 50 },
-            padding: { top: 10, right: 10, bottom: 10, left: 10 },
-        });
-
-        westerosChart.loadData = async function(url) {
-            if (url.match(/\.csv$/)) {
-                this.data = d3.csvParse(await (await fetch(url)).text());
-            } else if (url.match(/\.json$/)) {
-                this.data = await (await fetch(url)).json();
-            }
-
-            return this.data;
-        };
-
-        westerosChart.init = function(chartType, dataUrl, ...args) {
-            this.loadData(dataUrl).then(data => this[chartType].call(this, data, ...args));
-
-            this.innerHeight =
-                this.height - this.margin.top - this.margin.bottom - this.padding.top - this.padding.bottom;
-
-            this.innerWeight =
-                this.width - this.margin.left - this.margin.right - this.padding.left - this.padding.right;
-        };
-
-        westerosChart.tree = function(_data) {
-            // const data = getMajorHouses(_data);
-            const data = _data;
-            const chart = this.container;
-            const stratify = d3
+        const treeData = d3.hierarchy(
+            d3
                 .stratify()
-                .parentId(d => d.fatherLabel)
-                .id(d => d.itemLabel);
+                .id(d => d.name)
+                .parentId(d => d.parent)(data),
+        );
 
-            const root = stratify(data);
-            const layout = d3.tree().size([this.innerWeight, this.innerHeight]);
-        };
+        const svg = d3
+            .select(this.containerRef)
+            .append('svg')
+            .attr('class', styles.chart)
+            .attr('width', width + 30)
+            .attr('height', height + 30)
+            .append('g')
+            .attr('transform', `translate(15,15)`);
+
+        const treemap = d3.tree().size([height, width]);
+
+        const nodes = treemap(treeData);
+
+        const link = svg
+            .selectAll('.link')
+            .data(nodes.descendants().slice(1))
+            .enter()
+            .append('path')
+            .attr('class', styles.link)
+            .attr('d', d =>
+                d3.line().curve(d3.curveBundle)([
+                    [d.x, d.y],
+                    [d.x, (d.y + d.parent.y) / 2],
+                    [d.parent.x, (d.y + d.parent.y) / 2],
+                    [d.parent.x, d.parent.y],
+                ]),
+            );
+
+        const nodeEls = svg
+            .selectAll(`.${styles.node}`)
+            .data(nodes.descendants())
+            .enter()
+            .append('g')
+
+            .attr('class', d => clsx(styles.node, d.children ? styles.nodeInternal : styles.nodeLeaf))
+            .attr('transform', d => `translate(${d.x},${d.y})`);
+
+        nodeEls
+            .on('mouseover', (_, idx, nodes) => {
+                d3.select(nodes[idx])
+                    .select('circle')
+                    .transition()
+                    .ease(d3.easeCircleOut)
+                    .attr('r', 15);
+
+                d3.select(nodes[idx])
+                    .select('text')
+                    .transition()
+                    .attr('dx', '1.25em');
+            })
+            .on('mouseleave', (_, idx, nodes) => {
+                d3.select(nodes[idx])
+                    .select('circle')
+                    .transition()
+                    .ease(d3.easeBounceOut)
+                    .attr('r', 10);
+
+                d3.select(nodes[idx])
+                    .select('text')
+                    .transition()
+                    .attr('dx', '.75em');
+            });
+
+        nodeEls.append('circle').attr('r', 10);
+
+        nodeEls
+            .append('text')
+            .attr('dx', '.75em')
+            .attr('dy', '.35em')
+            .text(d => d.data.data.name);
     };
 
     componentDidMount() {

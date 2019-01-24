@@ -5,24 +5,31 @@
     margin: 10px;
 }
 
-.root{
-    position: relative;
+.link {
+    fill: none;
+    stroke: $lime1;
 }
-
 .node {
-    box-sizing: border-box;
-    position: absolute;
-    overflow: hidden;
+    :global {
+        circle {
+            stroke: $gray1;
+            stroke-width: 2px;
+        }
+    }
 }
 
-.node-label {
-    padding: 4px;
-    line-height: 1em;
-    white-space: pre;
+.nodeInternal {
+    :global {
+        circle {
+            fill: $blue5;
+        }
+    }
 }
 
-.node-value {
-    color: rgba(0,0,0,0.8);
-    font-size: 9px;
-    margin-top: 1px;
+.nodeLeaf {
+    :global {
+        circle {
+            fill: $orange3;
+        }
+    }
 }
