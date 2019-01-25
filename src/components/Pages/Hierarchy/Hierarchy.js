@@ -25,6 +25,8 @@ export class Hierarchy extends React.Component {
                 .parentId(d => d.parent)(data),
         );
 
+        window.treeData = treeData;
+
         const svg = d3
             .select(this.containerRef)
             .append('svg')
