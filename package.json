@@ -11,7 +11,7 @@
     "d3-svg-legend": "^2.25.6",
     "immutable": "^4.0.0-rc.12",
     "lodash": "^4.17.11",
-    "node-sass": "^4.11.0",
+    "node-sass": "^4.13.1",
     "normalize.css": "^8.0.1",
     "pixi.js": "^4.8.5",
     "prop-types": "^15.6.2",
